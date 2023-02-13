@@ -37,7 +37,7 @@ export function AppRoutes() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: colors.green[500],
-        tabBarInactiveTintColor: colors.gray[500],
+        tabBarInactiveTintColor: colors.gray[200],
         tabBarStyle: {
           backgroundColor: colors.gray[600],
           borderTopWidth: 0,
