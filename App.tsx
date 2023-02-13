@@ -7,11 +7,12 @@ import {
 import { NativeBaseProvider } from 'native-base';
 import { Loading } from '@components/Loading';
 import { THEME } from './src/theme';
+import { SignIn } from '@screens/SignIn';
 
 export default function App() {
   const [fontsLoading] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
-  if (fontsLoading) {
+  if (!fontsLoading) {
     return (
       <NativeBaseProvider theme={THEME}>
         <Loading />
@@ -24,8 +25,6 @@ export default function App() {
       <View
         style={{
           flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
           backgroundColor: '#202024',
         }}
       >
@@ -34,7 +33,7 @@ export default function App() {
           backgroundColor='transparent'
           translucent
         />
-        <Text>Open up App.tsx to start working on your app!</Text>
+        <SignIn />
       </View>
     </NativeBaseProvider>
   );
