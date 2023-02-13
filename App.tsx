@@ -22,19 +22,12 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={THEME}>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#202024',
-        }}
-      >
-        <StatusBar
-          barStyle='light-content'
-          backgroundColor='transparent'
-          translucent
-        />
-        <Routes />
-      </View>
+      <StatusBar
+        barStyle='light-content'
+        backgroundColor='transparent'
+        translucent
+      />
+      <Routes />
     </NativeBaseProvider>
   );
 }
