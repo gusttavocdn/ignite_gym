@@ -44,7 +44,7 @@ export function SignUp() {
   };
 
   const handleSignUp = (formData: FormDataProps) => {
-    // console.log(data);
+    console.log(formData);
   };
 
   return (
