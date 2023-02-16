@@ -9,14 +9,56 @@ import {
   VStack,
   Skeleton,
   Heading,
+  useToast,
 } from 'native-base';
 import { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 const PHOTO_SIZE = 33;
 
 export function Profile() {
-  const [photoIsLoading, setPhotoIsLoading] = useState(true);
+  const [photoIsLoading, setPhotoIsLoading] = useState(false);
+  const [userPhoto, setUserPhoto] = useState(
+    'https:github.com/gusttavocdn.png'
+  );
+
+  const toast = useToast();
+
+  const handleUserPhotoSelect = async () => {
+    setPhotoIsLoading(true);
+    try {
+      const photoSelected = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        aspect: [4, 4],
+        allowsEditing: true,
+      });
+
+      if (photoSelected.canceled) return;
+
+      const photoURI = photoSelected.assets[0].uri;
+
+      if (photoURI) {
+        const photoInfo = await FileSystem.getInfoAsync(photoURI);
+
+        if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
+          return toast.show({
+            title: 'Essa imagem é muito grande. Escolha uma de até 5MB',
+            placement: 'top',
+            bgColor: 'red.500',
+          });
+        }
+
+        setUserPhoto(photoURI);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setPhotoIsLoading(false);
+    }
+  };
 
   return (
     <VStack flex={1}>
@@ -38,13 +80,13 @@ export function Profile() {
             />
           ) : (
             <UserPhoto
-              source={{ uri: 'https:github.com/gusttavocdn.png' }}
+              source={{ uri: userPhoto }}
               size={PHOTO_SIZE}
               alt='Foto do usuario'
             />
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelect}>
             <Text
               color='green.500'
               fontWeight='bold'
