@@ -1,6 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { FlatList, Heading, HStack, Text, useToast, VStack } from 'native-base';
+import {
+  FlatList,
+  Heading,
+  HStack,
+  ScrollView,
+  Text,
+  useToast,
+  VStack,
+} from 'native-base';
 
 import { api } from '@services/api';
 import { AppError } from '@utils/AppError';
@@ -45,11 +53,10 @@ export function Home() {
     }
   }
 
-  async function fecthExercisesByGroup() {
+  async function fethExercisesByGroup() {
     try {
       setIsLoading(true);
       const response = await api.get(`/exercises/bygroup/${groupSelected}`);
-
       setExercises(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -73,7 +80,7 @@ export function Home() {
 
   useFocusEffect(
     useCallback(() => {
-      fecthExercisesByGroup();
+      fethExercisesByGroup();
     }, [groupSelected])
   );
 
@@ -105,7 +112,7 @@ export function Home() {
       {isLoading ? (
         <Loading />
       ) : (
-        <VStack px={8}>
+        <VStack px={8} flex={1}>
           <HStack justifyContent='space-between' mb={5}>
             <Heading color='gray.200' fontSize='md' fontFamily='heading'>
               Exercícios

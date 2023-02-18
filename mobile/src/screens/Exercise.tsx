@@ -12,7 +12,7 @@ import {
 import { TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { AppNavigationRoutesProps } from '@routes/app.routes';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
 import BodySvg from '@assets/body.svg';
 import SeriesSvg from '@assets/series.svg';
@@ -20,7 +20,7 @@ import RepetitionSvg from '@assets/repetitions.svg';
 import { Button } from '@components/Button';
 
 export function Exercise() {
-  const { goBack } = useNavigation<AppNavigationRoutesProps>();
+  const { goBack } = useNavigation<AppNavigatorRoutesProps>();
 
   const handleGoBack = () => {
     goBack();
