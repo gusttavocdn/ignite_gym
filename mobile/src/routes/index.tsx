@@ -3,14 +3,19 @@ import { Box, useTheme } from 'native-base';
 import { AuthRoutes } from './auth.routes';
 import { AppRoutes } from './app.routes';
 import { useAuth } from '@hooks/useAuth';
+import { Loading } from '@components/Loading';
 
 export function Routes() {
   const { colors } = useTheme();
   const theme = DefaultTheme;
 
-  const { user } = useAuth();
+  const { user, isLoadingUserStorageData } = useAuth();
 
   theme.colors.background = colors.gray[700];
+
+  if (isLoadingUserStorageData) {
+    return <Loading />;
+  }
 
   console.log(user);
   return (
