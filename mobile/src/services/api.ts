@@ -21,14 +21,14 @@ const api = axios.create({
 let failedQueued: Array<PromiseType> = [];
 let isRefreshing = false;
 
-api.registerInterceptTokenManager = singOut => {
+api.registerInterceptTokenManager = signOut => {
   const interceptTokenManager = api.interceptors.response.use((response) => response, async (requestError) => {
     if(requestError.response?.status === 401) {
       if(requestError.response.data?.message === 'token.expired' || requestError.response.data?.message === 'token.invalid') {
         const { refresh_token } = await storageAuthTokenGet();
 
         if(!refresh_token) {
-          singOut();
+          signOut();
           return Promise.reject(requestError)
         }
         
@@ -75,7 +75,7 @@ api.registerInterceptTokenManager = singOut => {
               request.onFailure(error);
             })
 
-            singOut();
+            signOut();
             reject(error);
           } finally {
             isRefreshing = false;
@@ -85,7 +85,7 @@ api.registerInterceptTokenManager = singOut => {
 
       }
       
-      singOut();
+      signOut();
       
     }
 

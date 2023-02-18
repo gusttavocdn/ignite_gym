@@ -12,8 +12,6 @@ export function HomeHeader() {
     signOut,
   } = useAuth();
 
-  console.log(avatar);
-
   return (
     <HStack bg='gray.600' pt={16} pb={5} px={8} alignItems='center'>
       <UserPhoto
