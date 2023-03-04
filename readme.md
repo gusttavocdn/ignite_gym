@@ -1,4 +1,4 @@
-# Ignte Gym
+# Ignite Gym
 
 ## :page_with_curl: About/Sobre
 
