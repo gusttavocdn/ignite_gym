@@ -163,7 +163,11 @@ export function Exercise() {
                 </HStack>
               </HStack>
 
-              <Button title='Marcar como realizado' />
+              <Button
+                title='Marcar como realizado'
+                onPress={handleExerciseHistoryRegister}
+                isLoading={sendingRegister}
+              />
             </Box>
           </VStack>
         )}
